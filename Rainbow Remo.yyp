@@ -27,6 +27,7 @@
   "name":"Rainbow Remo",
   "resources":[
     {"id":{"name":"fText","path":"fonts/fText/fText.yy",},},
+    {"id":{"name":"oDashGhost","path":"objects/oDashGhost/oDashGhost.yy",},},
     {"id":{"name":"oGame","path":"objects/oGame/oGame.yy",},},
     {"id":{"name":"oRemo","path":"objects/oRemo/oRemo.yy",},},
     {"id":{"name":"oTile","path":"objects/oTile/oTile.yy",},},
