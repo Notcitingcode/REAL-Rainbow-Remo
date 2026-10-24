@@ -31,3 +31,12 @@ for (var _x = 0; _x < room_width; _x += _tile_size) {
         _inst.tile_color_id = irandom(array_length(global.palette) - 1);
     }
 }
+
+// Window Scaling Fix
+var _scale = 4; // Or your preferred scale factor
+
+window_set_size(320 * _scale, 184 * _scale);
+surface_resize(application_surface, 320, 184);
+window_center();
+
+gpu_set_texfilter(false);
