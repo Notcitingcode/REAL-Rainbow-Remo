@@ -1,5 +1,8 @@
 // oGame - Draw GUI Event
 
+// Set your custom font as the active font for all text drawing
+draw_set_font(fText);
+
 var _gui_w = display_get_gui_width();
 
 // Draw a clean top status bar background spanning full width

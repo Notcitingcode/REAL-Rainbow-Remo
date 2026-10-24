@@ -1,13 +1,18 @@
+// oGame - Step Event
+
 switch (state) {
     
     case GameState.DANCING:
         timer--;
         if (timer <= 0) {
-            var _pattern = irandom(49);
+            // Pick a random pattern (0 to 69 for 70 total patterns)
+            var _pattern = irandom(69);
             var _num_colors = array_length(global.palette);
 
+            // Apply the pattern across all tiles using coordinates (gx: 0-19, gy: 0-9)
             with (oTile) {
                 switch (_pattern) {
+                    // --- CLASSIC GEOMETRIC PATTERNS (0 - 9) ---
                     case 0:  tile_color_id = (gx + gy) % _num_colors; break; 
                     case 1:  tile_color_id = gx % _num_colors; break;         
                     case 2:  tile_color_id = gy % _num_colors; break;         
@@ -19,6 +24,7 @@ switch (state) {
                     case 8:  tile_color_id = round(point_distance(gx, gy, 9.5, 4.5)) % _num_colors; break; 
                     case 9:  tile_color_id = (abs(gx - 9.5) + abs(gy - 4.5)) % _num_colors; break; 
 
+                    // --- SHAPES & FRAMES (10 - 19) ---
                     case 10: tile_color_id = (gx == 0 || gx == 19 || gy == 0 || gy == 9) ? 1 : 0; break; 
                     case 11: tile_color_id = (abs(gx - 9.5) < 4 && abs(gy - 4.5) < 3) ? 2 : 3; break; 
                     case 12: tile_color_id = (gx == 9 || gx == 10 || gy == 4 || gy == 5) ? 4 : 5; break; 
@@ -30,6 +36,7 @@ switch (state) {
                     case 18: tile_color_id = (gx + gy > 14) ? 4 : 1; break; 
                     case 19: tile_color_id = (point_distance(gx, gy, 9.5, 4.5) < 3.5) ? 5 : 2; break; 
 
+                    // --- PIXEL ICONS & SYMBOLS (20 - 29) ---
                     case 20: 
                         var _is_heart = ((gy >= 1 && gy <= 3 && ((gx >= 2 && gx <= 7) || (gx >= 12 && gx <= 17))) || 
                                          (gy >= 4 && gy <= 8 && abs(gx - 9.5) <= (9 - gy)));
@@ -71,6 +78,7 @@ switch (state) {
                         tile_color_id = (abs(gx - 9.5) < 5 && abs(gy - 4.5) < 2) ? 2 : 3;
                         break;
 
+                    // --- ADVANCED PROCEDURAL PATTERNS (30 - 49) ---
                     case 30: tile_color_id = (gx ^ gy) % _num_colors; break;
                     case 31: tile_color_id = (gx + gy * gy) % _num_colors; break;
                     case 32: tile_color_id = (gx % 4 == gy % 4) ? 0 : 2; break;
@@ -91,9 +99,91 @@ switch (state) {
                     case 47: tile_color_id = (gy * 4 - gx) % _num_colors; break;
                     case 48: tile_color_id = (gx % 3 == 0 && gy % 3 == 0) ? 1 : 4; break;
                     case 49: tile_color_id = (abs(gx - gy) % 4) % _num_colors; break;
+
+                    // --- CELESTIAL, FLAGS & SYMBOL PATTERNS (50 - 69) ---
+                    case 50: // Sun Symbol
+                        var _is_sun = (point_distance(gx, gy, 9.5, 4.5) <= 2) || (gx == 9.5 && (gy == 1 || gy == 8)) || (gy == 4.5 && (gx == 4 || gx == 15));
+                        tile_color_id = _is_sun ? 1 : 3;
+                        break;
+                    case 51: // Crescent Moon
+                        var _main_moon = (point_distance(gx, gy, 10, 4.5) <= 3);
+                        var _cutout = (point_distance(gx, gy, 11.5, 4.5) <= 2.5);
+                        tile_color_id = (_main_moon && !_cutout) ? 1 : 5;
+                        break;
+                    case 52: // Tricolor Flag
+                        tile_color_id = (gx < 6) ? 0 : ((gx < 13) ? 2 : 4);
+                        break;
+                    case 53: // Nordic Cross Flag
+                        var _cross = (gx == 6 || gy == 4 || gy == 5);
+                        tile_color_id = _cross ? 0 : 2;
+                        break;
+                    case 54: // Medical Cross / Plus
+                        var _plus = (gx >= 8 && gx <= 11 && gy >= 2 && gy <= 7) || (gx >= 6 && gx <= 13 && gy >= 4 && gy <= 5);
+                        tile_color_id = _plus ? 0 : 5;
+                        break;
+                    case 55: // Cloud & Rain
+                        var _cloud = (gy >= 2 && gy <= 5 && abs(gx - 9.5) <= 4);
+                        var _rain = (gy >= 6 && gy <= 8 && (gx % 3 == 0));
+                        tile_color_id = (_cloud || _rain) ? 3 : 1;
+                        break;
+                    case 56: // Saturn / Ringed Planet
+                        var _planet = (point_distance(gx, gy, 9.5, 4.5) <= 1.5);
+                        var _ring = (abs((gx - 9.5) * 0.5 + (gy - 4.5)) <= 0.8 && abs(gx - 9.5) <= 4);
+                        tile_color_id = (_planet || _ring) ? 2 : 4;
+                        break;
+                    case 57: // Spiral Galaxy
+                        var _angle = arctan2(gy - 4.5, gx - 9.5);
+                        var _dist = point_distance(gx, gy, 9.5, 4.5);
+                        tile_color_id = (abs(sin(_angle * 2 + _dist * 0.8)) < 0.35) ? 4 : 0;
+                        break;
+                    case 58: // Castle Battlements
+                        var _castle = (gy >= 5) || (gy >= 2 && (gx % 3 == 0));
+                        tile_color_id = _castle ? 1 : 3;
+                        break;
+                    case 59: // Double Diamonds
+                        var _d1 = (abs(gx - 9.5) + abs(gy - 4.5) == 4);
+                        var _d2 = (abs(gx - 9.5) + abs(gy - 4.5) == 2);
+                        tile_color_id = (_d1 || _d2) ? 0 : 4;
+                        break;
+                    case 60: // Thick Diagonal Bars
+                        tile_color_id = ((gx + gy * 2) % 4 < 2) ? 1 : 5;
+                        break;
+                    case 61: // Checker Dot Grid
+                        tile_color_id = ((gx + gy) % 2 == 0 && (gx % 2 == 0)) ? 2 : 0;
+                        break;
+                    case 62: // Pyramid Triangle
+                        var _pyr = (gy >= 2 && abs(gx - 9.5) <= (8 - gy));
+                        tile_color_id = _pyr ? 3 : 1;
+                        break;
+                    case 63: // Inverted Pyramid
+                        var _inv = (gy <= 7 && abs(gx - 9.5) <= gy);
+                        tile_color_id = _inv ? 4 : 2;
+                        break;
+                    case 64: // Radar Sweep Pie
+                        var _radar = (gy <= 4.5 && gx >= 9.5 && (gx - 9.5 >= abs(gy - 4.5)));
+                        tile_color_id = _radar ? 2 : 5;
+                        break;
+                    case 65: // Chevron Arrow V-Pattern
+                        tile_color_id = (abs((gx - 9.5) - (gy % 3)) < 2) ? 3 : 0;
+                        break;
+                    case 66: // Anchor Silhouette
+                        var _anchor = (gx == 9 || gx == 10) && (gy >= 1 && gy <= 7) || (gy == 2 && gx >= 7 && gx <= 12) || (gy == 7 && gx >= 7 && gx <= 12);
+                        tile_color_id = _anchor ? 1 : 4;
+                        break;
+                    case 67: // Chess Knight L-Jump Grid
+                        tile_color_id = ((gx * gy) % 7 == 0) ? 3 : 1;
+                        break;
+                    case 68: // Stepped Box Rings
+                        var _ring_box = max(abs(gx - 9.5), abs(gy - 4.5));
+                        tile_color_id = (_ring_box % 2 == 0) ? 0 : 5;
+                        break;
+                    case 69: // Star Cluster Scatter
+                        tile_color_id = ((gx * 7 + gy * 13) % 11 == 0) ? 2 : 3;
+                        break;
                 }
             }
             
+            // Guarantee target color is on the board
             var _available_colors = [];
             with (oTile) {
                 var _found = false;
@@ -133,7 +223,7 @@ switch (state) {
         if (_tile_under_remo != noone && _tile_under_remo.tile_color_id == target_color_id) {
             score_count++;
             
-            // CAPPED DIFFICULTY CURVE: Stops getting faster at 1.2 seconds so it remains playable!
+            // Capped difficulty curve so it stops getting faster at 1.2 seconds
             round_time_max = max(1.2 * room_speed, round_time_max - 8);
             
             timer = dance_delay;
