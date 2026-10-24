@@ -1,4 +1,3 @@
-// oRemo - Create Event
 move_speed = 2; // Adjust speed as needed for a 16x16 character
 
 // Choose your scale multiplier (e.g., 4x makes it 1280x640)

@@ -1,6 +1,3 @@
-// oGame - Draw GUI Event
-
-// Draw a clean top status bar background using valid GameMaker color constants
 draw_rectangle_color(0, 0, room_width, 24, c_dkgray, c_dkgray, c_black, c_black, false);
 
 draw_set_halign(fa_center);

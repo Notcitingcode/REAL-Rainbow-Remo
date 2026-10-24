@@ -1,5 +1,3 @@
-// oGame - Step Event
-
 switch (state) {
     
     case GameState.DANCING:

@@ -1,5 +1,3 @@
-// oRemo - Step Event
-
 // 1. Get Player Input (WASD or Arrow Keys)
 var _move_right = keyboard_check(ord("D")) || keyboard_check(vk_right);
 var _move_left  = keyboard_check(ord("A")) || keyboard_check(vk_left);

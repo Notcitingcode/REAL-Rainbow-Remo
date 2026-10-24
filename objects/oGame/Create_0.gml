@@ -1,5 +1,3 @@
-// oGame - Create Event
-
 global.palette = [
     make_color_rgb(224, 169, 166), 
     make_color_rgb(229, 193, 133), 
