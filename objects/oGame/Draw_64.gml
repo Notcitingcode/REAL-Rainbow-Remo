@@ -1,3 +1,6 @@
+// oGame - Draw GUI Event
+
+// Draw a clean top status bar background using valid GameMaker color constants
 draw_rectangle_color(0, 0, room_width, 24, c_dkgray, c_dkgray, c_black, c_black, false);
 
 draw_set_halign(fa_center);
@@ -10,7 +13,11 @@ if (state == GameState.PROMPT) {
     
     // Prompt text and target color swatch neatly aligned in the center/right
     draw_text_color(190, 12, "GO TO:", c_white, c_white, c_white, c_white, 1);
-    draw_sprite_ext(sTile, 0, 240, 12, 0.75, 0.75, 0, global.palette[target_color_id], 1);
+    
+    // SAFETY CHECK: Only draw the palette swatch if target_color_id is valid!
+    if (target_color_id >= 0 && target_color_id < array_length(global.palette)) {
+        draw_sprite_ext(sTile, 0, 240, 12, 0.75, 0.75, 0, global.palette[target_color_id], 1);
+    }
     
     // Show current score on the far right
     draw_text_color(285, 12, "Score:" + string(score_count), c_yellow, c_yellow, c_yellow, c_yellow, 1);
