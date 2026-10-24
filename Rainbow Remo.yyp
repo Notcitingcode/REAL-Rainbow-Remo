@@ -23,6 +23,7 @@
   },
   "name":"Rainbow Remo",
   "resources":[
+    {"id":{"name":"oGame","path":"objects/oGame/oGame.yy",},},
     {"id":{"name":"oRemo","path":"objects/oRemo/oRemo.yy",},},
     {"id":{"name":"oTile","path":"objects/oTile/oTile.yy",},},
     {"id":{"name":"oWall","path":"objects/oWall/oWall.yy",},},
