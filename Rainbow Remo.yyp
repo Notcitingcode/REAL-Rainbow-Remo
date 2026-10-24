@@ -8,7 +8,7 @@
     "children":[],
     "name":"Default",
   },
-  "defaultScriptType":0,
+  "defaultScriptType":1,
   "Folders":[
     {"$GMFolder":"","%Name":"Rooms","folderPath":"folders/Rooms.yy","name":"Rooms","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Objects","folderPath":"folders/Objects.yy","name":"Objects","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -23,7 +23,13 @@
   },
   "name":"Rainbow Remo",
   "resources":[
+    {"id":{"name":"oRemo","path":"objects/oRemo/oRemo.yy",},},
+    {"id":{"name":"oTile","path":"objects/oTile/oTile.yy",},},
+    {"id":{"name":"oWall","path":"objects/oWall/oWall.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
+    {"id":{"name":"sRemo","path":"sprites/sRemo/sRemo.yy",},},
+    {"id":{"name":"sTile","path":"sprites/sTile/sTile.yy",},},
+    {"id":{"name":"sWall","path":"sprites/sWall/sWall.yy",},},
   ],
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
