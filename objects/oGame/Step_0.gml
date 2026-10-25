@@ -217,14 +217,14 @@ switch (state) {
         }
         break;
         
-    case GameState.CHECK:
+	case GameState.CHECK:
         var _tile_under_remo = instance_position(oRemo.x, oRemo.y, oTile);
         
         if (_tile_under_remo != noone && _tile_under_remo.tile_color_id == target_color_id) {
             score_count++;
             
-            // Capped difficulty curve so it stops getting faster at 1.2 seconds
-            round_time_max = max(1.2 * room_speed, round_time_max - 8);
+            // FASTER DIFFICULTY RAMP: Caps at 0.8 seconds (instead of 1.2s) and scales down quicker (-12 frames per point)
+            round_time_max = max(0.8 * room_speed, round_time_max - 12);
             
             timer = dance_delay;
             state = GameState.DANCING;
