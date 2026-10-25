@@ -33,7 +33,7 @@ for (var _x = 0; _x < room_width; _x += _tile_size) {
 }
 
 // Window Scaling Fix
-var _scale = 4; // Or your preferred scale factor
+var _scale = 3; 
 
 window_set_size(320 * _scale, 184 * _scale);
 surface_resize(application_surface, 320, 184);
