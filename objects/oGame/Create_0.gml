@@ -40,3 +40,6 @@ surface_resize(application_surface, 320, 184);
 window_center();
 
 gpu_set_texfilter(false);
+
+// oGame - Create Event (add this with your existing variables)
+music_inst = audio_play_sound(aMusic, 10, true); // Start background music looping immediately

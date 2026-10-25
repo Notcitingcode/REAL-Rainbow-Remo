@@ -4,6 +4,12 @@ switch (state) {
     
     case GameState.DANCING:
         timer--;
+        
+        // Ensure music is paused/silent while the "GROOVE!" screen is showing
+        if (audio_exists(music_inst) && audio_is_playing(music_inst)) {
+            audio_pause_sound(music_inst);
+        }
+        
         if (timer <= 0) {
             // Truly random selection across 100 patterns (0 to 99)
             var _pattern = irandom(99);
@@ -227,12 +233,23 @@ switch (state) {
             
             timer = round_time_max;
             state = GameState.PROMPT;
+            
+            // Resume or start music right when the PROMPT phase / timer countdown begins
+            if (audio_exists(music_inst)) {
+                audio_resume_sound(music_inst);
+            } else {
+                music_inst = audio_play_sound(aMusic, 10, true);
+            }
         }
         break;
         
     case GameState.PROMPT:
         timer--;
+        // When the prompt countdown timer hits 0, pause the music and evaluate
         if (timer <= 0) {
+            if (audio_exists(music_inst)) {
+                audio_pause_sound(music_inst);
+            }
             state = GameState.CHECK;
         }
         break;
@@ -255,14 +272,19 @@ switch (state) {
             round_time_max = max(0.8 * room_speed, round_time_max - 8);
             
             timer = dance_delay;
-            state = GameState.DANCING;
+            state = GameState.DANCING; // Music will automatically pause at the top of this state
         } else {
+            // Stop music completely on game over
+            audio_stop_sound(music_inst);
+            music_inst = noone;
+            
             state = GameState.GAMEOVER;
         }
         break;
         
     case GameState.GAMEOVER:
         if (keyboard_check_pressed(ord("R"))) {
+            audio_stop_sound(music_inst);
             game_restart();
         }
         break;
