@@ -42,3 +42,5 @@ window_center();
 gpu_set_texfilter(false);
 
 music_inst = audio_play_sound(aMusic, 10, true); // Start background music looping immediately
+
+display_set_gui_size(320, 184);
