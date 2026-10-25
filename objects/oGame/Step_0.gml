@@ -218,13 +218,21 @@ switch (state) {
         break;
         
 	case GameState.CHECK:
-        var _tile_under_remo = instance_position(oRemo.x, oRemo.y, oTile);
+        // Check if Remo is touching ANY tile that matches the target color
+        var _correct_tile_touched = false;
         
-        if (_tile_under_remo != noone && _tile_under_remo.tile_color_id == target_color_id) {
+        with (oTile) {
+            if (tile_color_id == other.target_color_id && place_meeting(x, y, oRemo)) {
+                _correct_tile_touched = true;
+                break; // Found a matching tile he's touching, no need to keep checking
+            }
+        }
+        
+        if (_correct_tile_touched) {
             score_count++;
             
-            // FASTER DIFFICULTY RAMP: Caps at 0.8 seconds (instead of 1.2s) and scales down quicker (-12 frames per point)
-            round_time_max = max(0.8 * room_speed, round_time_max - 12);
+            // Reverted difficulty curve: Caps at 1.2 seconds, reducing by 8 frames per point
+            round_time_max = max(1.2 * room_speed, round_time_max - 8);
             
             timer = dance_delay;
             state = GameState.DANCING;
