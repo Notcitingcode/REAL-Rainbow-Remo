@@ -95,10 +95,11 @@ x = clamp(x, _half_w, room_width - _half_w);
 y = clamp(y, 24 + _half_h, room_height - _half_h);
 
 // ==========================================
-// 8. SQUASH AND STRETCH JUICE
+// 8. BUTTERY SMOOTH SQUASH AND STRETCH
 // ==========================================
+// Determine facing direction safely
 var _facing = (image_xscale != 0) ? sign(image_xscale) : 1;
-if (abs(_hsp) > 0) {
+if (_hsp != 0) {
     _facing = sign(_hsp);
 }
 
@@ -106,21 +107,21 @@ var _target_xscale = _facing;
 var _target_yscale = 1;
 
 if (dash_timer > 0) {
-    // Extreme stretch in the direction of the dash!
-    if (abs(_hsp) > abs(_vsp)) {
-        _target_xscale = _facing * 1.5; 
-        _target_yscale = 0.6;          
+    // Dynamic stretching based on movement axis during dash
+    if (abs(_hsp) >= abs(_vsp)) {
+        _target_xscale = _facing * 1.6; // Stretched wide
+        _target_yscale = 0.55;         // Squished flat
     } else {
-        _target_xscale = _facing * 0.6; 
-        _target_yscale = 1.4;          
+        _target_xscale = _facing * 0.55; // Squished narrow
+        _target_yscale = 1.6;          // Stretched tall
     }
-} else if (abs(_hsp) > 0 || abs(_vsp) > 0) {
-    // Subtle walking bounce/jiggle
-    var _bounce = abs(sin(current_time * 0.02)) * 0.25;
-    _target_xscale = _facing * (1 + _bounce * 0.4);
-    _target_yscale = 1 - _bounce * 0.4;
+} else if (_hsp != 0 || _vsp != 0) {
+    // Balanced walking bop (smoothly alternates between stretch and squash)
+    var _bounce = sin(current_time * 0.02) * 0.18;
+    _target_xscale = _facing * (1 - _bounce);
+    _target_yscale = 1 + _bounce;
 }
 
-// Smoothly interpolate (lerp) toward target scales for elastic spring feel
-image_xscale = lerp(image_xscale, _target_xscale, 0.25);
-image_yscale = lerp(image_yscale, _target_yscale, 0.25);
+// Smoothly interpolate toward target scales
+image_xscale = lerp(image_xscale, _target_xscale, 0.3);
+image_yscale = lerp(image_yscale, _target_yscale, 0.3);
