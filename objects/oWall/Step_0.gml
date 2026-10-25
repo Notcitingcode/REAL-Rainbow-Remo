@@ -1,4 +1,4 @@
-// 1. Get Player Input (WASD or Arrow Keys)
+// Get Player Input (WASD or Arrow Keys)
 var _move_right = keyboard_check(ord("D")) || keyboard_check(vk_right);
 var _move_left  = keyboard_check(ord("A")) || keyboard_check(vk_left);
 var _move_down  = keyboard_check(ord("S")) || keyboard_check(vk_down);
@@ -21,7 +21,7 @@ if (place_meeting(x + _hsp, y, oWall)) {
 }
 x += _hsp;
 
-// 3. Vertical Collision with oWall
+// Vertical Collision with oWall
 if (place_meeting(x, y + _vsp, oWall)) {
     // Move pixel by pixel until we hit the wall
     while (!place_meeting(x, y + sign(_vsp), oWall)) {
@@ -31,8 +31,7 @@ if (place_meeting(x, y + _vsp, oWall)) {
 }
 y += _vsp;
 
-// 4. Screen Boundary Clamp (Keeps Remo inside the 320x160 room)
-// Assumes sprite origin is set to "Middle Center" (8px offset)
+// Screen Boundary Clamp
 var _half_w = sprite_get_width(sprite_index) * 0.5;
 var _half_h = sprite_get_height(sprite_index) * 0.5;
 

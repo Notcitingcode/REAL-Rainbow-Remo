@@ -1,5 +1,3 @@
-// oGame - Draw GUI Event
-
 // Set your custom font as the active font for all text drawing
 draw_set_font(fText);
 
@@ -10,11 +8,11 @@ draw_rectangle_color(0, 0, _gui_w, 24, c_dkgray, c_dkgray, c_black, c_black, fal
 draw_set_valign(fa_middle);
 
 if (state == GameState.PROMPT) {
-    // 1. Timer bar on the left side
+    // Timer bar on the left side
     var _bar_width = (timer / round_time_max) * 60;
     draw_rectangle_color(12, 8, 12 + _bar_width, 16, global.palette[0], global.palette[0], global.palette[0], global.palette[0], false);
     
-    // 2. "GO TO:" text & color swatch properly aligned together
+    // "GO TO:" text & color swatch properly aligned together
     draw_set_halign(fa_left);
     var _prompt_x = 110;
     
@@ -31,7 +29,7 @@ if (state == GameState.PROMPT) {
     // Using a clean width scale of 1.5 and height scale of 0.75
     draw_sprite_ext(sTile, 0, _prompt_x + 87, 12, 1.5 * 3, 0.75, 0, _target_col, 1);
     
-    // 3. Score on the right side using palette white
+    // Score on the right side using palette white
     draw_set_halign(fa_right);
     draw_text_color(308, 12, "SCORE: " + string(score_count), global.palette[0], global.palette[0], global.palette[0], global.palette[0], 1);
     

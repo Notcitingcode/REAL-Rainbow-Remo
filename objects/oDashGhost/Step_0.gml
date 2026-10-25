@@ -1,4 +1,3 @@
-// oDashGhost - Step Event
 image_alpha -= fade_speed;
 
 // Destroy when fully faded

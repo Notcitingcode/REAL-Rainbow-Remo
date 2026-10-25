@@ -1,5 +1,3 @@
-// oRemo - Draw Event
-
 // If dash just replenished, flash white; otherwise draw normally
 if (dash_flash_timer > 0) {
     gpu_set_fog(true, c_white, 0, 0);

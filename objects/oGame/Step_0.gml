@@ -1,11 +1,9 @@
-// oGame - Step Event
-
 switch (state) {
     
     case GameState.DANCING:
         timer--;
         
-        // Ensure music is paused/silent while the "GROOVE!" screen is showing
+        // Ensure music is paused/silent while the "SCORE!" screen is showing
         if (audio_exists(music_inst) && audio_is_playing(music_inst)) {
             audio_pause_sound(music_inst);
         }
