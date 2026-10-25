@@ -272,11 +272,14 @@ switch (state) {
             round_time_max = max(0.8 * room_speed, round_time_max - 8);
             
             timer = dance_delay;
-            state = GameState.DANCING; // Music will automatically pause at the top of this state
+            state = GameState.DANCING; 
         } else {
             // Stop music completely on game over
             audio_stop_sound(music_inst);
             music_inst = noone;
+            
+            // Play lose sound effect right here on failure
+            audio_play_sound(aLose, 10, false);
             
             state = GameState.GAMEOVER;
         }

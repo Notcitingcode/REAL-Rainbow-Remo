@@ -39,6 +39,9 @@ if (oGame.state != GameState.GAMEOVER) {
         dash_timer = dash_duration;
         dash_cooldown = dash_cooldown_max;
         
+        // Randomly play either aDash1 or aDash2 on dash activation
+        audio_play_sound(choose(aDash1, aDash2), 5, false);
+        
         if (_h_input == 0 && _v_input == 0) {
             _h_input = last_h_input;
             _v_input = last_v_input;
